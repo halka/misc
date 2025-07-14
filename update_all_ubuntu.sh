@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # MIT License
 # 
 # Copyright (c) 2025 [halka]
@@ -20,10 +21,40 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+
+
+WAITING_FOR_REBOOT=${1:-10}
+# Define ANSI color codes
+COLOR_RED='\033[0;31m'
+COLOR_YELLOW='\033[0;33m'
+COLOR_NC='\033[0m' # No Color (reset)
+
 apt update;
 apt full-upgrade -y;
 apt dist-upgrade -y;
-rpi-update -y;
+do-release-upgrade -c;
 apt autoremove -y;
 apt autoclean;
-reboot
+
+read -p "Do you want to reboot? (Y/N) " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+    for i in $(seq $WAITING_FOR_REBOOT -1 0); 
+    do  
+	if (( i <= 3 )); then
+            CURRENT_COLOR="${COLOR_RED}"
+        elif (( i <= 5 )); then
+            CURRENT_COLOR="${COLOR_YELLOW}"
+        else
+            CURRENT_COLOR="${COLOR_NC}" # Default to no color
+        fi  
+        echo -ne "\r${CURRENT_COLOR}Reboot in $i Seconds...${COLOR_NC}"
+	sleep 1
+    done
+    echo -ne "\rreboot now!"
+    #reboot
+else
+    echo "Without reboot."
+    exit 0
+fi
