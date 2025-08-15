@@ -1,1 +1,0 @@
-winget update --all --include-unknown --silent --allow-reboot --disable-interactivity --accept-package-agreements --accept-source-agreements --authentication-mode silent  --authentication-account %username%
