@@ -27,6 +27,7 @@ rem Upgrade all packages
 echo.
 echo Upgrading all packages...
 winget upgrade --all --include-pinned --force --include-unknown --silent --ignore-warnings --accept-package-agreements --accept-source-agreements --disable-interactivity --source winget
+winget upgrade --all --include-pinned --force --include-unknown --silent --ignore-warnings --accept-package-agreements --accept-source-agreements --disable-interactivity --source msstore
 
 rem Check result
 if errorlevel 1 (
@@ -44,4 +45,5 @@ echo.
 echo Press any key to close...
 pause >nul
 exit /b %RESULT%
+
 
