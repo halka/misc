@@ -1,8 +1,36 @@
 # misc
 
-Miscellaneous scripts and utilities for Linux, Windows, and Android.
+Miscellaneous scripts and utilities for macOS, Linux, Windows, and Android.
 
 ## Description
+
+### macOS Scripts
+- [`uninstall_xcode.sh`](uninstall_xcode.sh): Refactored Xcode uninstaller and Simulator cleanup. Supports dry-run, skipping simulator cleanup, and optional removal of Command Line Tools.
+
+  Usage examples:
+  ```bash
+  ./uninstall_xcode.sh --help
+  ./uninstall_xcode.sh --dry-run             # preview actions, no changes
+  ./uninstall_xcode.sh --force               # uninstall Xcode + simulator runtimes
+  ./uninstall_xcode.sh --remove-clt --force  # also remove Command Line Tools
+  ./uninstall_xcode.sh --skip-sims --force   # keep simulator runtimes
+  ```
+
+- [`cleanup_sim_runtimes.sh`](cleanup_sim_runtimes.sh): Cleans up old Simulator runtimes using current `simctl runtime list` output. Keeps only platform+major versions listed in `KEEP_VERSIONS` and deletes the rest.
+
+  Quick start:
+  ```bash
+  # Edit KEEP_VERSIONS inside the script (e.g., "iOS 18", "watchOS 11", "tvOS 18", "xrOS 26")
+  ./cleanup_sim_runtimes.sh
+  ```
+
+  Notes:
+  - `simctl` requires full Xcode. If missing, install Xcode and set the active developer dir:
+    ```bash
+    sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+    xcrun simctl list
+    ```
+  - On some Xcode versions, visionOS may appear as `visionOS` rather than `xrOS`. Adjust `KEEP_VERSIONS` accordingly.
 
 ### Linux Scripts
 - **[`lvm_clean.sh`](lvm_clean.sh)**: 
