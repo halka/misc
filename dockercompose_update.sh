@@ -48,7 +48,7 @@ echo -e "${GREEN}✔️ Step 2 Complete!${RESET}\n"
 
 # 3. Rebuild and start containers
 echo -e "${GREEN}✨ [3/4] 🚀 Building and starting containers (up -d)...${RESET}"
-docker compose up -d
+docker compose up -d --remove-orphans
 echo -e "${GREEN}✔️ Step 3 Complete!${RESET}\n"
 
 # 4. Clean up unused resources
@@ -57,3 +57,8 @@ docker system prune -f
 echo -e "${GREEN}✔️ Step 4 Complete!${RESET}\n"
 
 echo -e "${CYAN}${BOLD}🎉✨ All update processes are complete! Everything is sparkling clean! ✨🎉${RESET}"
+
+#5 Log Watch
+echo -e "${GREEN}📄 Check Log${RESET}\n"
+docker compose logs -f
+
