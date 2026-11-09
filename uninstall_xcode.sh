@@ -169,7 +169,9 @@ main() {
   remove_clt
 
   log ""
-  log "🎉 Done. Xcode and related files have been removed${REMOVE_CLT:+ (including CLT)}."
+  local clt_status=""
+  if $REMOVE_CLT; then clt_status=" (including CLT)"; fi
+  log "🎉 Done. Xcode and related files have been removed${clt_status}."
   $DRY_RUN && log "(No changes were made due to --dry-run)"
 }
 
